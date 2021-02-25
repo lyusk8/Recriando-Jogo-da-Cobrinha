@@ -30,6 +30,15 @@ function maca() {
   context.fillRect(apple.x * cubo, apple.y * cubo, cubo, cubo);
 }
 
+document.addEventListener('keydown', update);
+
+function update(e) {
+  if (e.keyCode === 37 && direcao != 'direita') direcao = 'esquerda';
+  if (e.keyCode === 38 && direcao != 'abaixo') direcao = 'acima';
+  if (e.keyCode === 39 && direcao != 'esquerda') direcao = 'direita';
+  if (e.keyCode === 40 && direcao != 'acima') direcao = 'abaixo';
+}
+
 function jogar() {
   if (cobra[0].x > 15 * cubo && direcao === 'direita') cobra[0].x = 0;
   if (cobra[0].x < 0 && direcao === 'esquerda') cobra[0].x = 15 * cubo;
@@ -37,7 +46,7 @@ function jogar() {
   if (cobra[0].y < 0 && direcao === 'acima') cobra[0].y = 15 * cubo;
   criarFundo();
   criarCobra();
-  maca();
+
   let cobrax = cobra[0].x;
   let cobray = cobra[0].y;
   if (direcao === 'direita') cobrax += cubo;
