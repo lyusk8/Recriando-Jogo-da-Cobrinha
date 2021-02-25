@@ -45,6 +45,14 @@ function jogar() {
   if (cobra[0].x < 0 && direcao === 'esquerda') cobra[0].x = 15 * cubo;
   if (cobra[0].y > 15 * cubo && direcao === 'abaixo') cobra[0].y = 0;
   if (cobra[0].y < 0 && direcao === 'acima') cobra[0].y = 15 * cubo;
+
+  for (let i = 1; i < cobra.length; i++) {
+    if (cobra[0].x == cobra[i].x && cobra[0].y == cobra[i].y) {
+      clearInterval(jogo);
+      alert('Game Over :(');
+    }
+  }
+
   criarFundo();
   criarCobra();
   maca();
@@ -70,4 +78,4 @@ function jogar() {
   cobra.unshift(cabeca);
 }
 
-let jogo = setInterval(jogar, 100);
+let jogo = setInterval(jogar, 300);
