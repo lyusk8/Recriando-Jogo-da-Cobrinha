@@ -9,6 +9,11 @@ cobra[0] = {
 
 let direcao;
 
+let apple = {
+  x: Math.floor(Math.random() * 15 + 1) * cubo,
+  y: Math.floor(Math.random() * 15 + 1) * cubo,
+};
+
 function criarFundo() {
   context.fillStyle = 'lightgreen';
   context.fillRect(0, 0, canvas.width, canvas.height);
@@ -22,12 +27,8 @@ function criarCobra() {
 }
 
 function maca() {
-  let apple = {
-    x: Math.floor(Math.random() * 16),
-    y: Math.floor(Math.random() * 16),
-  };
   context.fillStyle = 'red';
-  context.fillRect(apple.x * cubo, apple.y * cubo, cubo, cubo);
+  context.fillRect(apple.x, apple.y, cubo, cubo);
 }
 
 document.addEventListener('keydown', update);
@@ -46,6 +47,7 @@ function jogar() {
   if (cobra[0].y < 0 && direcao === 'acima') cobra[0].y = 15 * cubo;
   criarFundo();
   criarCobra();
+  maca();
 
   let cobrax = cobra[0].x;
   let cobray = cobra[0].y;
@@ -53,8 +55,12 @@ function jogar() {
   if (direcao === 'esquerda') cobrax -= cubo;
   if (direcao === 'acima') cobray -= cubo;
   if (direcao === 'abaixo') cobray += cubo;
-
-  cobra.pop();
+  if (cobrax != apple.x || cobray != apple.y) {
+    cobra.pop();
+  } else {
+    apple.x = Math.floor(Math.random() * 15 + 1) * cubo;
+    apple.y = Math.floor(Math.random() * 15 + 1) * cubo;
+  }
 
   let cabeca = {
     x: cobrax,
@@ -64,4 +70,4 @@ function jogar() {
   cobra.unshift(cabeca);
 }
 
-//let jogo = setInterval(jogar, 100);
+let jogo = setInterval(jogar, 100);
